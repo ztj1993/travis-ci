@@ -1,0 +1,14 @@
+language: bash
+
+services:
+  - docker
+
+before_script:
+  - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD" "$DOCKER_SERVER"
+
+script:
+  - uname -a
+
+after_success:
+  - docker build -t "$DOCKER_SERVER/ztj1993/hello:latest" .
+  - docker push "$DOCKER_SERVER/ztj1993/hello:latest"
