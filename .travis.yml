@@ -9,7 +9,8 @@ before_script:
 script:
   - uname -a
   - env
+  - echo "${TRAVIS_COMMIT:0:7}"
 
 after_success:
-  - docker build -t "$DOCKER_SERVER/ztj1993/travis:latest" .
-  - docker push "$DOCKER_SERVER/ztj1993/travis:latest"
+  - docker build -t "$DOCKER_SERVER/ztj1993/travis:${TRAVIS_BRANCH}" .
+  - docker push "$DOCKER_SERVER/ztj1993/travis:${TRAVIS_BRANCH}"
