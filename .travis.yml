@@ -13,13 +13,14 @@ before_script:
 script:
   - docker build -t "${IMAGE_BASE}" .
   - docker build -t "${IMAGE_EXT}" .
-  - docker run --rm --name=${TAG_BASE} ${IMAGE_BASE} php -v
-  - docker run --rm --name=${TAG_BASE} ${IMAGE_BASE} httpd -v
-  - docker run --rm --name=${TAG_BASE} ${IMAGE_BASE} composer -V
-  - docker run --rm --name=${TAG_BASE} ${IMAGE_BASE} phpunit --version
-  - docker push "${IMAGE_BASE}"
-  - docker push "${IMAGE_EXT}"
+  - docker run --rm --name=${TAG_BASE} ${TAG_BASE} env
 
-after_script:
+after_success:
   - echo "${IMAGE_BASE}"
   - echo "${IMAGE_EXT}"
+
+deploy:
+  provider: script
+  script: docker push "${IMAGE_BASE}" && docker push "${IMAGE_EXT}"
+  on:
+    all_branches: true
