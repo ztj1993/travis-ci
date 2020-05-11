@@ -11,8 +11,7 @@ before_script:
   - IMAGE_EXT="${DOCKER_SERVER}/${TRAVIS_REPO_SLUG}:${TAG_EXT}"
 
 script:
-  - docker build -t "${IMAGE_BASE}" .
-  - docker build -t "${IMAGE_EXT}" .
+  - docker build -t "${IMAGE_BASE}" "${IMAGE_EXT}" .
   - docker run --rm --name=${TAG_BASE} ${IMAGE_BASE} env
 
 after_success:
