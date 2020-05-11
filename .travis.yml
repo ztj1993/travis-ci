@@ -4,13 +4,19 @@ services:
   - docker
 
 before_script:
-  - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD" "$DOCKER_SERVER"
+  - docker login -u "${DOCKER_USERNAME}" -p "${DOCKER_PASSWORD}" "${DOCKER_SERVER}"
+  - TAG_BASE="${TRAVIS_BRANCH}"
+  - TAG_EXT="${TRAVIS_BRANCH}-${TRAVIS_COMMIT:0:7}"
+  - IMAGE_BASE="${DOCKER_SERVER}/${TRAVIS_REPO_SLUG}:${TAG_BASE}"
+  - IMAGE_EXT="${DOCKER_SERVER}/${TRAVIS_REPO_SLUG}:${TAG_EXT}"
 
 script:
-  - uname -a
-  - env
-  - echo "${TRAVIS_COMMIT:0:7}"
+  - docker build -t "${TAG_BASE}" .
+  - docker build -t "${TAG_EXT}" .
+  - docker run --rm --name=${TAG_BASE} ${TAG_BASE} env
 
 after_success:
-  - docker build -t "$DOCKER_SERVER/ztj1993/travis-ci:${TRAVIS_BRANCH}" .
-  - docker push "$DOCKER_SERVER/ztj1993/travis-ci:${TRAVIS_BRANCH}"
+  - docker push "${TAG_BASE}"
+  - docker push "${TAG_EXT}"
+  - echo "${IMAGE_BASE}"
+  - echo "${IMAGE_EXT}"
