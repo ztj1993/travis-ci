@@ -16,7 +16,7 @@ script:
   - docker run --rm --name=${TAG_BASE} ${TAG_BASE} env
 
 after_success:
-  - docker push "${TAG_BASE}"
-  - docker push "${TAG_EXT}"
+  - docker push "${IMAGE_BASE}"
+  - docker push "${IMAGE_EXT}"
   - echo "${IMAGE_BASE}"
   - echo "${IMAGE_EXT}"
