@@ -11,12 +11,15 @@ before_script:
   - IMAGE_EXT="${DOCKER_SERVER}/${TRAVIS_REPO_SLUG}:${TAG_EXT}"
 
 script:
-  - docker build -t "${TAG_BASE}" .
-  - docker build -t "${TAG_EXT}" .
-  - docker run --rm --name=${TAG_BASE} ${TAG_BASE} env
-
-after_success:
+  - docker build -t "${IMAGE_BASE}" .
+  - docker build -t "${IMAGE_EXT}" .
+  - docker run --rm --name=${TAG_BASE} ${IMAGE_BASE} php -v
+  - docker run --rm --name=${TAG_BASE} ${IMAGE_BASE} httpd -v
+  - docker run --rm --name=${TAG_BASE} ${IMAGE_BASE} composer -V
+  - docker run --rm --name=${TAG_BASE} ${IMAGE_BASE} phpunit --version
   - docker push "${IMAGE_BASE}"
   - docker push "${IMAGE_EXT}"
+
+after_script:
   - echo "${IMAGE_BASE}"
   - echo "${IMAGE_EXT}"
