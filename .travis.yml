@@ -1,0 +1,23 @@
+language: bash
+
+before_install:
+  - mkdir /app && cd /app
+  - git clone --depth 1 https://github.com/ztj1993/scoop-index .
+  - git submodule init
+  - git submodule update --depth 1
+
+install: skip
+
+before_script: skip
+
+script: skip
+
+after_success: skip
+
+after_failure: skip
+
+before_deploy: skip
+
+after_deploy: skip
+
+after_script: skip
