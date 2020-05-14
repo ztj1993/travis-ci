@@ -1,7 +1,7 @@
 language: bash
 
 before_install:
-  - mkdir /app && cd /app
+  - sudo mkdir /app && sudo chmod 777 /app && cd /app
   - git clone --depth 1 https://github.com/ztj1993/scoop-index .
   - git submodule init
   - git submodule update --depth 1
