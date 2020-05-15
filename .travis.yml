@@ -1,11 +1,13 @@
 language: bash
 
 before_install:
+  - COMMIT_ALIAS=${TRAVIS_COMMIT:0:7}
   - sudo mkdir /scoop && sudo chmod 777 /scoop && cd /scoop
   - git clone --depth 1 https://github.com/ztj1993/scoop-index .
   - git submodule init
   - git submodule update --depth 1
   - git -C apps/scoop/current am patch/disable-automatic-update.patch
+  - zip -r /scoop-${COMMIT_ALIAS}.zip /scoop
 
 install: skip
 
@@ -20,5 +22,14 @@ after_failure: skip
 before_deploy: skip
 
 after_deploy: skip
+
+deploy:
+  provider: releases
+  api_key: $GITHUB_TOKEN
+  skip_cleanup: true
+  file:
+    - /scoop-${COMMIT_ALIAS}.zip
+  on:
+    all_branches: true
 
 after_script: skip
