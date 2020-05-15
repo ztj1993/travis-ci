@@ -6,7 +6,7 @@ before_install:
   - git clone --depth 1 https://github.com/ztj1993/scoop-index .
   - git submodule init
   - git submodule update --depth 1
-  - git -C apps/scoop/current am patch/disable-automatic-update.patch
+  - git -C ./apps/scoop/current am ./patch/disable-automatic-update.patch
   - zip -r /scoop-${COMMIT_ALIAS}.zip /scoop
 
 install: skip
@@ -31,5 +31,6 @@ deploy:
     - /scoop-${COMMIT_ALIAS}.zip
   on:
     all_branches: true
+    tags: true
 
 after_script: skip
