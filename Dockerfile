@@ -14,9 +14,7 @@ RUN echo "********** start **********" \
   && echo "---------- cli ----------" \
   && git clone https://github.com/ztj-archived/uni-app-dev.git \
   && yarn install \
-  && echo "---------- yarn ----------" \
-  && yarn config -g set registry https://registry.npm.taobao.org \
-  && yarn config -g set sass_binary_site https://cdn.npm.taobao.org/dist/node-sass \
+  && yarn add node-sass --dev \
   && echo "********** end **********"
 
 CMD ["yarn", "serve"]
