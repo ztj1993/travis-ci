@@ -6,15 +6,15 @@ WORKDIR /srv
 VOLUME /srv
 EXPOSE 8080
 
+RUN apk add --no-cache git nodejs npm yarn
+
 RUN echo "********************" \
-  && apk add --no-cache git nodejs npm yarn \
-  && echo "--------------------" \
   && git clone https://github.com/ztj-archived/uni-app-dev.git . \
   && yarn install \
-  && yarn add node-sass --dev \
-  && echo "--------------------" \
+  && yarn add node-sass --dev
+
+RUN echo "********************" \
   && rm -rf ./src \
-  && git clone https://github.com/ztj-archived/uni-app-dev.git ./src \
-  && echo "--------------------"
+  && git clone https://github.com/ztj-archived/uni-app-dev.git ./src
 
 CMD ["yarn", "serve"]
