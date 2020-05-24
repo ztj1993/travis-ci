@@ -7,7 +7,7 @@ VOLUME /srv
 EXPOSE 8080
 
 RUN echo "********************" \
-  && pwd
+  && pwd \
   && echo "--------------------" \
   && apk add --no-cache git nodejs npm yarn \
   && echo "--------------------" \
