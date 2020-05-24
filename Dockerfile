@@ -14,6 +14,6 @@ RUN echo "********************" \
 
 RUN echo "********************" \
   && rm -rf ./src \
-  && git clone https://github.com/ztj-archived/uni-app-dev.git ./src
+  && git clone https://github.com/ztj-archived/mix-mall.git ./src
 
 CMD ["yarn", "serve"]
