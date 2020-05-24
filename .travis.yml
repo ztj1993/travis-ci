@@ -17,6 +17,7 @@ before_script: skip
 
 script:
   - docker run --rm --name=${TAG_BASE} ${IMAGE_BASE} env
+  - docker run --rm --name=${TAG_BASE} ${IMAGE_BASE} ls
 
 after_success:
   - echo "${IMAGE_BASE}"
