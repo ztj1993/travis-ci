@@ -15,6 +15,6 @@ RUN echo "********************" \
   && rm -rf ./src \
   && git clone https://github.com/ztj-archived/mix-mall.git ./src
 
-EXPOSE 8080
+EXPOSE 80
 
 CMD ["yarn", "serve"]
