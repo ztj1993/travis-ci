@@ -16,8 +16,7 @@ install:
 before_script: skip
 
 script:
-  - docker run --rm --name=${TAG_BASE} ${IMAGE_BASE} ls
-  - docker run --rm --name=${TAG_BASE} ${IMAGE_BASE} cat /srv/package.json
+  - docker run --rm --name=${TAG_BASE} ${IMAGE_BASE} yarn info
 
 after_success:
   - echo "${IMAGE_BASE}"
@@ -26,6 +25,12 @@ after_success:
 after_failure: skip
 
 before_deploy: skip
+
+deploy:
+  provider: script
+  script: docker push "${IMAGE_BASE}" && docker push "${IMAGE_EXT}"
+  on:
+    all_branches: true
 
 after_deploy: skip
 
