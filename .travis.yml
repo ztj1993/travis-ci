@@ -20,7 +20,6 @@ script:
   - docker build -t "${IMAGE_EXT}" .
   - docker run --rm --name=${TAG_BASE} ${IMAGE_BASE} python -V
   - docker run --rm --name=${TAG_BASE} ${IMAGE_BASE} pip -V
-  - docker run --rm --name=${TAG_BASE} ${IMAGE_BASE} git --version
 
 after_success:
   - echo "${IMAGE_BASE}"
