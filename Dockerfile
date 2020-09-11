@@ -11,6 +11,6 @@ RUN rm -rf /srv/.git
 
 FROM php:7.3-apache
 LABEL maintainer="Ztj <ztj1993@gmail.com>"
-COPY --from=clone /srv /srv
+COPY --from=install /srv /srv
 RUN rm -rf /var/www/html && ln -s /srv/public /var/www/html
 WORKDIR /srv/releases
