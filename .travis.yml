@@ -3,36 +3,9 @@ language: bash
 services:
   - docker
 
-before_install:
-  - docker login -u "${DOCKER_USERNAME}" -p "${DOCKER_PASSWORD}" "${DOCKER_SERVER}"
-  - TAG_BASE="${TRAVIS_BRANCH}"
-  - TAG_EXT="${TRAVIS_BRANCH}-${TRAVIS_COMMIT:0:7}"
-  - IMAGE_BASE="${DOCKER_SERVER}/${TRAVIS_REPO_SLUG}:${TAG_BASE}"
-  - IMAGE_EXT="${DOCKER_SERVER}/${TRAVIS_REPO_SLUG}:${TAG_EXT}"
-
 install:
-  - docker build -t "${IMAGE_BASE}" -t "${IMAGE_EXT}" .
-
-before_script: skip
+  - docker build -t release-belt .
 
 script:
-  - docker run --rm --name=${TAG_BASE} ${IMAGE_BASE} env
-  - docker run --rm --name=${TAG_BASE} ${IMAGE_BASE} ls
+  - docker run --rm release-belt ls /srv
 
-after_success:
-  - echo "${IMAGE_BASE}"
-  - echo "${IMAGE_EXT}"
-
-after_failure: skip
-
-before_deploy: skip
-
-deploy:
-  provider: script
-  script: docker push "${IMAGE_BASE}" && docker push "${IMAGE_EXT}"
-  on:
-    all_branches: true
-
-after_deploy: skip
-
-after_script: skip
