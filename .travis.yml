@@ -8,6 +8,6 @@ install:
 
 script:
   - docker run --network host --name release-belt release-belt
-  - docker run --rm release-belt ls -l /srv
-  - docker run --rm release-belt ls -l /var/www/html
+  - docker exec release-belt ls -l /srv
+  - docker exec release-belt ls -l /var/www/html
   - curl http://127.0.0.1
